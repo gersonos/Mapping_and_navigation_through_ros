@@ -1,0 +1,32 @@
+<launch>
+
+                <!--transformadas de los marcos de coordenadas (base_link y odom) y la odometría obtenida de los encoders tras comunicarse con arduino-->
+
+  <node name="base_controller" pkg="navegacion" type="base_controller">
+
+    <param name="publish_tf" value="true" />
+    <param name="publish_rate" value="10.0" />    <!-- está en 10 -->
+    <param name="linear_scale_positive" value="0.99" />
+    <param name="linear_scale_negative" value="0.99" />
+    <param name="angular_scale_positive" value="1.0" />
+    <param name="angular_scale_negative" value="1.0" />
+    <param name="angular_scale_accel" value="0.0" />
+    <param name="alpha" value="0.5" />
+    <param name="use_imu" value="false" />
+
+  </node>
+
+                <!--nodo move_base y parámetros para el navigation stack--> 
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+    <rosparam file="$(find navegacion)/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find navegacion)/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find navegacion)/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find navegacion)/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find navegacion)/base_local_planner_params.yaml" command="load" />
+
+  </node>             
+
+
+</launch>
