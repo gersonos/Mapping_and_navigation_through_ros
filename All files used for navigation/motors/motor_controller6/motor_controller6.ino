@@ -1,5 +1,5 @@
 
-//ROS headers                                                                                         //from here
+//ROS headers                                                                                        
 #if (ARDUINO >= 100)
  #include <Arduino.h>
 #else
@@ -12,11 +12,11 @@
 #include "robot_specs.h"
 
 //Motor Shield headers
-#include "DualVNH5019MotorShield.h"                                                                   //to here don't touch
-DualVNH5019MotorShield md;                                                                            //from here
+#include "DualVNH5019MotorShield.h"                                                                  
+DualVNH5019MotorShield md;                                                                            
 
-                                                                                                      //to here VNH5019 initialize                                                                                                   
-#define encodPinA1      18     // first encoder A output                                              //from here
+                                                                                                                                                      
+#define encodPinA1      18     // first encoder A output                                              
 #define encodPinB1      34     // first encoder B output
 #define encodPinA2      19     // second encoder A output
 #define encodPinB2      35     // second encoder B output
@@ -25,18 +25,18 @@ DualVNH5019MotorShield md;                                                      
 
 #define setmotorspeed
 
-#define sign(x) (x > 0) - (x < 0)                                                                     //to here don't touch
+#define sign(x) (x > 0) - (x < 0)                                                                    
 
-unsigned long lastMilli = 0;       // loop timing                                                     //from here
+unsigned long lastMilli = 0;       // loop timing                                                    
 unsigned long lastMilliPub = 0;
 double rpm_req1 = 0;
 double rpm_req2 = 0;
 double rpm_act1 = 0;
 double rpm_act2 = 0;
 double rpm_req1_smoothed = 0;
-double rpm_req2_smoothed = 0;                                                                         //to here don't touch
+double rpm_req2_smoothed = 0;                                                                        
 
-int PWM_val1 = 0;                                                                                     //from here
+int PWM_val1 = 0;                                                                                     
 int PWM_val2 = 0;
 volatile long count1 = 0;          // rev counter
 volatile long count2 = 0;
@@ -45,9 +45,9 @@ long countAnt2 = 0;
 float Kp =   7.0;
 float Kd =   0.0;
 float Ki =   0.0;
-ros::NodeHandle nh;                                                                                  //to here don't touch
+ros::NodeHandle nh;                                                                                 
 
-void handle_cmd( const geometry_msgs::Twist& cmd_msg) {                                              //from here
+void handle_cmd( const geometry_msgs::Twist& cmd_msg) {                                              
   double x = cmd_msg.linear.x;
   double z = cmd_msg.angular.z;
   if (z == 0) {     // go straight
@@ -64,19 +64,19 @@ void handle_cmd( const geometry_msgs::Twist& cmd_msg) {                         
     rpm_req1 = x*60/(pi*wheel_diameter)-z*track_width*60/(wheel_diameter*pi*2);
     rpm_req2 = x*60/(pi*wheel_diameter)+z*track_width*60/(wheel_diameter*pi*2);
   }
-}                                                                                                    //to here don't touch
+}                                                                                                   
 
-ros::Subscriber<geometry_msgs::Twist> sub("cmd_vel", handle_cmd);                                    //from here
+ros::Subscriber<geometry_msgs::Twist> sub("cmd_vel", handle_cmd);                                    
 geometry_msgs::Vector3Stamped rpm_msg;
 ros::Publisher rpm_pub("rpm", &rpm_msg);
 ros::Time current_time;
-ros::Time last_time;                                                                                 //to here don't touch
+ros::Time last_time;                                                                                 
 
-void setup() {                                                                                       //from here
+void setup() {                                                                                      
 
- Serial.begin(57600);                                                                               //this serial.begin starts at 115200 is it right for mega 2560?, all my files are set for 57600 baud rate
+ Serial.begin(57600);                                                                              
  Serial.println("Dual VNH5019 Motor Shield");
- md.init();                                                                                          //md.init() activate all md commands, right?        
+ md.init();                                                                                                 
  count1 = 0;
  count2 = 0;
  countAnt1 = 0;
@@ -90,30 +90,30 @@ void setup() {                                                                  
  nh.initNode();
  nh.getHardware()->setBaud(57600);
  nh.subscribe(sub);
- nh.advertise(rpm_pub);                                                                              //to here don't touch
-  
- pinMode(encodPinA1, INPUT);                                                                         //from here
+ nh.advertise(rpm_pub);                                                                              
+ 
+ pinMode(encodPinA1, INPUT);                                                                         
  pinMode(encodPinB1, INPUT); 
- digitalWrite(encodPinA1, HIGH);                // turn on pullup resistor
+ digitalWrite(encodPinA1, HIGH);              
  digitalWrite(encodPinB1, HIGH);
- attachInterrupt(5, encoder1, RISING);                                                               //use of interrupt 3 on mega board (pin 20)
+ attachInterrupt(5, encoder1, RISING);                                                               
 
  pinMode(encodPinA2, INPUT); 
  pinMode(encodPinB2, INPUT); 
- digitalWrite(encodPinA2, HIGH);                // turn on pullup resistor
+ digitalWrite(encodPinA2, HIGH);                
  digitalWrite(encodPinB2, HIGH);
- attachInterrupt(4, encoder2, RISING);                                                               //use of interrupt 5 on mega board (pin 18)
-                                                                                                     //to here don't touch
+ attachInterrupt(4, encoder2, RISING);                                                               
+                                                                                                     
  
- md.setM1Speed(0);                                                                                   //change from motor1->setSpeed(0); to "0". If I'd put md.setM1Speed (0) instead 0"I think they do the same"
- md.setM2Speed(0);                                                                                   //same as above
+ md.setM1Speed(0);                                                                                   
+ md.setM2Speed(0);                                                                                   
 
 }                                                                                                    
 
-void loop() {                                                                                        //from here 
+void loop() {                                                                                        
   nh.spinOnce();
   unsigned long time = millis();
-  if(time-lastMilli>= LOOPTIME)   {      // enter tmed loop                                          
+  if(time-lastMilli>= LOOPTIME)   {                                              
     getMotorData(time-lastMilli);
     PWM_val1 = updatePid(1, PWM_val1, rpm_req1, rpm_act1);
     PWM_val2 = updatePid(2, PWM_val2, rpm_req2, rpm_act2);
@@ -128,23 +128,23 @@ void loop() {                                                                   
        md.setM2Speed(PWM_val2/35);
 
     
-    publishRPM(time-lastMilli);                                                                      //from here
+    publishRPM(time-lastMilli);                                                                      
     lastMilli = time;
   }
   if(time-lastMilliPub >= LOOPTIME) {
   //  publishRPM(time-lastMilliPub);
     lastMilliPub = time;
   }
-}                                                                                                    //to here don't touch
+}                                                                                                    
 
-void getMotorData(unsigned long time)  {                                                             //from here
+void getMotorData(unsigned long time)  {                                                            
  rpm_act1 = double((count1-countAnt1)*60*1000)/double(time*encoder_pulse*gear_ratio);
  rpm_act2 = double((count2-countAnt2)*60*1000)/double(time*encoder_pulse*gear_ratio);
  countAnt1 = count1;
  countAnt2 = count2;
-}                                                                                                    //to here don't touch
+}                                                                                                    
 
-int updatePid(int id, int command, double targetValue, double currentValue) {                        //from here
+int updatePid(int id, int command, double targetValue, double currentValue) {                      
   double pidTerm = 0;                            // PID correction
   double error = 0;
   double new_pwm = 0;
@@ -168,18 +168,18 @@ int updatePid(int id, int command, double targetValue, double currentValue) {   
   new_pwm = constrain(double(command)*MAX_RPM/4096.0 + pidTerm, -MAX_RPM, MAX_RPM);
   new_cmd = 4096.0*new_pwm/MAX_RPM;
   return int(new_cmd);
-}                                                                                                    //to here don't touch
+}                                                                                                    
 
-void publishRPM(unsigned long time) {                                                                //from here
+void publishRPM(unsigned long time) {                                                                
   rpm_msg.header.stamp = nh.now();
   rpm_msg.vector.x = rpm_act1;
   rpm_msg.vector.y = rpm_act2;
   rpm_msg.vector.z = double(time)/1000;
   rpm_pub.publish(&rpm_msg);
   nh.spinOnce();
-}                                                                                                    //to here don't touch
+}                                                                                                    
 
-void encoder1() {                                                                                    //from here
+void encoder1() {                                                                                    
   if (digitalRead(encodPinA1) == digitalRead(encodPinB1)) count1++;
   else count1--;
 }
