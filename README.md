@@ -4,8 +4,13 @@ This is part of the project I'm doing in order to generate a map from an indoor 
 The order of commands used for mapping are the following:
 
 T1 roscore
+
 T2 roslaunch kinect_rosserial.launch
+
 T3 roslauch odom_nav.launch
+
 T4 roslaunch gmapping.launch
+
 T5 rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+
 T6 rosrun rviz rviz
