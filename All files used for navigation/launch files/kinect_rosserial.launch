@@ -40,18 +40,22 @@
     </node>
 
 
+                                                  <!-- Transformadas  -->
 
-                                    <!-- TRANSFORMADAS  -->
- 
-
-                                    <!-- transformada entre camera_depth_frame y la kinect (sin distancia de separación) -->
-
-    <node pkg="tf" type="static_transform_publisher" name="image_to_scan_broadcaster" args="0.13 0 0.27 0 0 0 \/camera_link camera_depth_frame 100" />
-
-		                    <!-- transformada entre base_link y camera_link -->
-
-    <node pkg="tf" type="static_transform_publisher" name="base_a_kinect" args="0 0 0 0 0 0 \/base_link camera_link 100" />
+                   <!-- transformada entre camera_depth_frame y la kinect (sin distancia de separación) -->
 
 
+    <node pkg="tf" type="static_transform_publisher" name="kinect_a_imagen_profundidad" args="0 0 0 0 0 0 \/camera_link camera_depth_frame 100" />   
+
+
+		           <!-- transformada entre base_link y camera_link -->
+
+
+    <node pkg="tf" type="static_transform_publisher" name="base_a_kinect" args="0.13 0 0.27 0 0 0 \/base_link camera_link 100" />
+
+
+                   <!-- transformada entre camera_depth_frame y camera_depth_optical_frame (comentada...) -->
+
+<!-- <node pkg="tf" type="static_transform_publisher" name="imagen_profundidad_ultimo_frame" args="0 0 0 0 0 0 \/camera_depth_frame camera_depth_optical_frame 100" /> -->
 
 </launch>
