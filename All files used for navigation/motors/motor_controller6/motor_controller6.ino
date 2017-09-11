@@ -125,7 +125,7 @@ void loop() {
     if (rpm_req2 == 0)
        md.setM2Speed(0);
     else
-       md.setM2Speed(PWM_val2/35);
+       md.setM2Speed(PWM_val2/30);
 
     
     publishRPM(time-lastMilli);                                                                      
