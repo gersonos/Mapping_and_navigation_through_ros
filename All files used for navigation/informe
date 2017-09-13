@@ -1,0 +1,44 @@
+
+
+
+
+
+Primer Informe
+
+
+
+Problema a abordar
+
+Reconocimiento de objetos 3D utilizando una Microsoft Kinect
+
+Metodología que se utilizará
+
+Mediante Matlab junto a algoritmos como SURF (Speeded Up Robust Feature), ICP (Iterative Closest Point) y filtros, se realizará una extracción de objetos o personas frente a algún fondo cambiante. 
+
+Resultados esperados
+
+Obtener el objeto o persona reconstruido en un gráfico de coordenadas (x, y), junto a sus dimensiones aproximadas (m, mm, o cm).
+
+Referencia bibliográfica
+
+http://pendientedemigracion.ucm.es/centros/cont/descargas/documento11541.pdf “Manual uso básico para Matlab”
+
+https://www.mathworks.com/help/imaq/examples/using-the-kinect-r-for-windows-r-from-image-acquisition-toolbox-tm.html “Comunicación de Matlab con la microsoft kinect”
+
+http://www.vision.ee.ethz.ch/~surf/eccv06.pdf “Algoritmo SURF”
+
+http://ais.informatik.uni-freiburg.de/teaching/ss11/robotics/slides/17-icp.pdf “Algoritmo ICP”
+
+
+
+
+
+
+
+
+
+							Alumnos: 		Gerson Nail Valenzuela
+										Miguel Rojas Sánchez
+							Profesor:		Gabriel Hermosilla Vigneau
+							Fecha:			06/09/2017
+							Asignatura:		PDI MIE804-1
