@@ -1,16 +1,13 @@
-# Yirsoon_environment_mapping
-This is part of the project I'm doing in order to generate a map from an indoor planar environment, which is at the moment, 3rd floor of my university. I've followed ROS tutorials and used part of the motors' code from my_personal_robotic_companion
+#Gerson_environment_mapping
 
-The order of commands used for mapping are the following:
+contact: @gersononail@hotmail.com
 
-T1 roscore
+This is part of the project I'm doing in order to do autonomous navigation using SLAM through ROS. At the moment, I've managed to make mapping from a plannar indoors environment. 
+While I'm studying the implementation of ROS packages, I'll be modificating some files and adding related content.
+So far, this is only for open source content and sharing and feel yourselft free to use this for whatever you want.
 
-T2 roslaunch kinect_rosserial.launch
 
-T3 roslauch odom_nav.launch
 
-T4 roslaunch gmapping.launch
 
-T5 rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 
-T6 rosrun rviz rviz
+
