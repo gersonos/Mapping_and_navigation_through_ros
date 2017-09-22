@@ -1,0 +1,10 @@
+global_costmap:
+  global_frame: /map                    # marco de referencia en el cual opera global_costmap
+  robot_base_frame: /base_link          # nombre del marco para la base del robot
+  update_frequency: 6.0   #de 1.0       # frecuencia de actualizacion del mapa en Hz
+  publish_frecuency: 5.0                # frecuencia en Hz a la cual es mapa es publicado
+  static_map: true                      # antes de registrar el mapa se deja en falso, pues no se esta utilizando un servidor de mapas
+  rolling_window: false                 # agregado al global_costmap_params. Es colocado en false cuando el mapa es estatico
+  transform_tolerance: 1.0   #de 0.5    # tolerancia como salvavidas en seg
+  #origin_x -5.0                        # no necesario dado el mapa estatico
+  #origin_y -5.0                        # idem

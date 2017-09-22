@@ -1,0 +1,42 @@
+<launch>
+
+    	<!-- Ejecución del nodo slam_gmapping -->
+ 
+    	<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+
+        <!-- <remap from="scan" to="scan"/> -->   <!-- no necesario dado que ya asume el tema /scan -->
+        <param name="odom_frame" value="/odom"/>   <!-- marco asociado al sistema de odometria -->
+        <param name="map_update_interval" value="0.5"/>   <!-- cuanto tarda (en segundos) en actualizarse el mapa. Un menor numero lo actualiza mas rapido a un mayor costo computacional -->
+        <param name="maxUrange" value="3.7"/>   <!-- maximo rango utilizable del laser, un rayo es recortado a este valor -->
+        <param name="maxRange" value="4.0"/> <!-- maximo rango del sensor. Si las regiones sin obstaculos dentro del rango del sensor deberian aparecer como espacio libre en el mapa, ajusta el maxUrange < maximum range del sensor real -->
+        <param name="sigma" value="0.05"/>   <!-- sigma utilizado por el punto final tentativo -->
+        <param name="kernelSize" value="1"/>   <!-- el kernel en el cual mirar por una correspondencia -->
+        <param name="lstep" value="0.05"/>   <!-- paso de optimizacion en la traslacion -->
+        <param name="astep" value="0.05"/>   <!-- paso de optimizacion en rotacion -->
+        <param name="iterations" value="5"/>   <!-- numero de iteraciones del escaner -->
+        <param name="lsigma" value="0.075"/>   <!-- el sigma de un rayo utilizado por la mayor probabilidad computacional -->
+        <param name="ogain" value="3.0"/>   <!-- ganancia para ser utilizada mientras evalua la mayor probabilidad, para suavizar los efector de remuestreo -->
+        <param name="lskip" value="0"/>   <!-- numero de rayos a saltarse en cada escaneo -->
+        <param name="srr" value="0.01"/>   <!-- error de odometria en la traslacion como una funcion de traslacion (rho/rho) -->
+        <param name="srt" value="0.02"/>   <!-- error de odometria en la traslacion como una funcion de rotacion (rho/theta) -->
+        <param name="str" value="0.01"/>   <!-- error de odometria en rotacion como una funcion de traslacion (theta/rho) --> 
+        <param name="stt" value="0.02"/>   <!-- error de odometria en rotacion como una funcion de rotacion (theta/theta) -->
+        <param name="linearUpdate" value="0.2"/>   <!-- actualizacion de movimiento lineal en m -->
+        <param name="angularUpdate" value="0.25"/>   <!-- actualizacion de movimiento angular en rad/s -->
+        <param name="temporalUpdate" value="-1.0"/>   <!-- procesa un escaneo si el ultimo procesado es mas antiguo al tiempo de actualizacion en segundos. Un valor menor a cero va a desactivar las actualizaciones basadas en el tiempo -->
+        <param name="resampleThreshold" value="0.5"/> <!-- el Neff basado en el umbral de remuestreo -->
+        <param name="particles" value="80"/>   <!-- numero de particulas en el filtro -->
+        <param name="xmin" value="-50.0"/>   <!-- tamaño inicial del mapa (todos en 50 para mapa con resolucion de 1940x1940, 100 para 4000x4000) -->
+        <param name="ymin" value="-50.0"/>   <!-- tamaño inicial del mapa -->
+        <param name="xmax" value="50.0"/>   <!-- tamaño inicial del mapa -->
+        <param name="ymax" value="50.0"/>   <!-- tamaño inicial del mapa -->
+        <param name="delta" value="0.05"/>   <!-- resolucion del mapa -->
+        <param name="llsamplerange" value="0.01"/>   <!-- rango de muestreo traslacional probabilistico -->
+        <param name="llsamplestep" value="0.01"/>   <!-- paso de mustreo traslacional probabilistico -->
+        <param name="lasamplerange" value="0.005"/>   <!-- rango de muestreo angular probabilistico -->
+        <param name="lasamplestep" value="0.005"/>   <!-- paso de muestreo angular probabilistico -->
+        <param name="minimumScore" value="100.0"/>       <!-- minimo puntaje para considerar el resultado de un escaneo. Puede evitar saltar estimaciones de posicion en espacios grandes cuando se usan escaneres laser con rangos limitados -->
+
+      </node>
+
+</launch>
