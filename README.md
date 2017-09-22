@@ -1,4 +1,4 @@
-#Gerson_environment_mapping
+#SLAM using ROS packages
 
 contact: @gersononail@hotmail.com
 
