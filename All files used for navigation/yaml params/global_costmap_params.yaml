@@ -1,9 +1,0 @@
-global_costmap:
-  global_frame: /map    #quité /         # marco de referencia en el cual opera global_costmap
-  robot_base_frame: base_link           # nombre del marco para la base del robot
-  update_frequency: 2.0                 # frecuencia de actualización del mapa en Hz
-  publish_frecuency: 1.0                # frecuencia en Hz a la cual es mapa es publicado
-  static_map: false                     # antes de registrar el mapa se deja en falso
-  transform_tolerance: 0.5              # tolerancia como salvavidas en seg
-  origin_x: -5.0  #agregadoo
-  origin_y: -5.0  #también
